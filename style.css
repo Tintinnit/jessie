@@ -1,0 +1,102 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+}
+
+.container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    gap: 10px;
+}
+
+form input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+form button {
+    padding: 10px;
+    border: none;
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #218838;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0;
+}
+
+ul li {
+    background: #f9f9f9;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+ul li .task-name {
+    flex: 1; /* Ensures the task name takes available space */
+    word-wrap: break-word; /* Wraps long task names */
+}
+
+ul li.completed {
+    text-decoration: line-through;
+    color: #aaa;
+}
+
+ul li button {
+    border: none;
+    background: #dc3545;
+    color: white;
+    padding: 5px 10px; /* Ensure consistent padding for all buttons */
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 5px; /* Add space between buttons */
+}
+
+ul li .edit-button {
+    border: none;
+    background: #373737;
+    color: white;
+    padding: 5px 10px; /* Match padding with other buttons */
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 5px; /* Add space between buttons */
+}
+
+ul li button:hover {
+    background: #c82333;
+}
+
+ul li .edit-button:hover {
+    background: #4a4a4a; /* Add hover effect for the edit button */
+}
