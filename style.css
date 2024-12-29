@@ -9,12 +9,74 @@ body {
     background-color: #f4f4f4;
 }
 
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+body.dark-mode .container {
+    background-color: #1e1e1e;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+}
+
+body.dark-mode form input {
+    background-color: #333333;
+    color: #ffffff;
+    border: 1px solid #444444;
+}
+
+body.dark-mode form button {
+    background-color: #006400;
+    color: #ffffff;
+}
+
+body.dark-mode ul li {
+    background-color: #2a2a2a;
+    border: 1px solid #444444;
+}
+
+body.dark-mode ul li.completed {
+    color: #888888;
+}
+
+body.dark-mode ul li button {
+    background-color: #900d0d;
+}
+
+body.dark-mode ul li .edit-button {
+    background-color: #444444;
+}
+
+body.dark-mode ul li button:hover,
+body.dark-mode ul li .edit-button:hover {
+    background-color: #555555;
+}
+
+/* Dark Mode Toggle Button */
+.dark-mode-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.dark-mode-btn:hover {
+    background-color: #0056b3;
+}
+
+
 .container {
     background: #fff;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    width: 700px;
+    max-height: 60vh; /* Restrict the maximum height of the list */
+    overflow-y: auto; /* Enable vertical scrolling when content overflows */
     text-align: center;
 }
 
@@ -57,6 +119,7 @@ ul li {
     background: #f9f9f9;
     margin: 10px 0;
     padding: 10px;
+    border: 2px solid #c26706;
     border-radius: 5px;
     display: flex;
     justify-content: space-between;
@@ -100,3 +163,68 @@ ul li button:hover {
 ul li .edit-button:hover {
     background: #4a4a4a; /* Add hover effect for the edit button */
 }
+
+/* Side panel container */
+.side-panel {
+    position: fixed;
+    top: 0;
+    right: -300px; /* Hidden initially */
+    width: 300px;
+    height: 100%;
+    background-color: #f9f9f9;
+    border-left: 1px solid #ddd;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease-in-out;
+    z-index: 1000;
+}
+
+/* Panel header */
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #c26706;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Side panel container dark mode */
+
+.panel-body.dark-mode {
+    color: #fff;
+    background-color: #1e1e1e;
+}
+
+/* Close button */
+.close-panel-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Panel body */
+.panel-body {
+    padding: 20px;
+    font-size: 16px;
+    color: #333;
+    line-height: 1.5;
+}
+
+/* Show the panel when it's active */
+.side-panel.active {
+    right: 0;
+}
+
+/* Smooth animations for elements */
+button {
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+button:hover {
+    background-color: #ddd;
+}
+

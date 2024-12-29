@@ -10,11 +10,21 @@
     <div class="container">
         <h1>Activity List</h1>
         <form id="todo-form">
-        <input type="text" id="todo-input" placeholder="Enter a task..." required>
-        <button type="submit">Add</button>
+        <input type="text" id="todo-input" placeholder="Enter an activity..." required>
+        <button type="submit">+</button>
         </form>
         <ul id="todo-list"></ul>
+        <button id="dark-mode-toggle" class="dark-mode-btn">Toggle Dark Mode</button>
     </div>
+    <div id="side-panel" class="side-panel">
+        <div class="panel-header">
+            <h2 id="task-title">Task Details</h2>
+            <button id="close-panel" class="close-panel-btn">×</button>
+        </div>
+        <div class="panel-body">
+            <p id="panel-content">Click on a task to see details here.</p>
+        </div>
+    </div>    
     <script src="script.js"></script>
 </body>
 </html>
