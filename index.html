@@ -3,19 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do List</title>
+    <title>Disjusting Pig's Webpage</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Activity List</h1>
-        <form id="todo-form">
-        <input type="text" id="todo-input" placeholder="Enter an activity..." required>
-        <button type="submit">+</button>
-        </form>
+        <!-- Header Section -->
+        <div class="container-header">
+            <h1>Activity List</h1>
+            <form id="todo-form">
+                <input type="text" id="todo-input" placeholder="Enter an activity..." required>
+                <button type="submit">+</button>
+            </form>
+        </div>
+        <!-- Scrollable Activity List -->
         <ul id="todo-list"></ul>
         <button id="dark-mode-toggle" class="dark-mode-btn">Toggle Dark Mode</button>
     </div>
+    <!-- Side Panel -->
     <div id="side-panel" class="side-panel">
         <div class="panel-header">
             <h2 id="task-title">Task Details</h2>
@@ -23,8 +28,18 @@
         </div>
         <div class="panel-body">
             <p id="panel-content">Click on a task to see details here.</p>
+            <hr>
+            <div id="time-log-container">
+                <label for="task-date">Select Date:</label>
+                <input type="date" id="task-date">
+                <label for="time-spent">Time Spent (hours):</label>
+                <input type="number" id="time-spent" min="0" step="0.1" placeholder="Enter hours">
+                <button id="log-time-btn">Log Time</button>
+            </div>
+            <h3>Time Logs:</h3>
+            <ul id="time-logs-list"></ul>
         </div>
-    </div>    
+    </div>
     <script src="script.js"></script>
 </body>
 </html>

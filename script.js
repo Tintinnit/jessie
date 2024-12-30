@@ -6,6 +6,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const panelContent = document.getElementById("panel-content");
     const closePanelBtn = document.getElementById("close-panel");
     const darkModeToggle = document.getElementById("dark-mode-toggle");
+    const taskDateInput = document.getElementById("task-date");
+    const timeSpentInput = document.getElementById("time-spent");
+    const logTimeBtn = document.getElementById("log-time-btn");
+    const timeLogsList = document.getElementById("time-logs-list");
+
+    let currentTask = null;
+    const taskLogs = {}; // Stores time logs for each task
 
     // Initialize Dark Mode from Local Storage
     if (localStorage.getItem("darkMode") === "enabled") {
@@ -16,6 +23,11 @@ document.addEventListener("DOMContentLoaded", () => {
     darkModeToggle.addEventListener("click", () => {
         document.body.classList.toggle("dark-mode");
         const isDarkMode = document.body.classList.contains("dark-mode");
+
+        // Ensure the side panel reflects dark mode
+        sidePanel.classList.toggle("dark-mode", isDarkMode);
+
+        // Save the preference in Local Storage
         localStorage.setItem("darkMode", isDarkMode ? "enabled" : "disabled");
     });
 
@@ -91,25 +103,59 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Toggle the side panel
         taskName.addEventListener("click", () => {
-            const taskDetail = `Task: ${taskName.textContent}`;
+            currentTask = taskName.textContent; // Track the current task
+            const taskDetail = `Task: ${currentTask}`;
             panelContent.textContent = taskDetail;
 
-            // Update the task title in the panel
-            const taskTitleElement = document.getElementById("task-title");
-            if (taskTitleElement) {
-                taskTitleElement.textContent = taskName.textContent;
-            }
+            // Display existing time logs
+            displayTimeLogs(currentTask);
 
             // Show the side panel
             sidePanel.style.display = "block"; // Ensure the panel is visible
             sidePanel.classList.add("active");
         });
 
-
         // Add all elements to the List Item
         li.appendChild(taskName);
         li.appendChild(editBtn);
         li.appendChild(deleteBtn);
         todoList.appendChild(li);
+    }
+
+    // Handle Time Logging
+    logTimeBtn.addEventListener("click", () => {
+        const date = taskDateInput.value;
+        const timeSpent = parseFloat(timeSpentInput.value);
+
+        if (!date || isNaN(timeSpent) || timeSpent <= 0) {
+            alert("Please select a date and enter a valid time.");
+            return;
+        }
+
+        // Store the log for the current task
+        if (!taskLogs[currentTask]) {
+            taskLogs[currentTask] = [];
+        }
+
+        taskLogs[currentTask].push({ date, timeSpent });
+
+        // Display the new log
+        displayTimeLogs(currentTask);
+
+        // Clear the inputs after logging
+        taskDateInput.value = "";
+        timeSpentInput.value = "";
+    });
+
+    // Display Time Logs for a Task
+    function displayTimeLogs(task) {
+        timeLogsList.innerHTML = ""; // Clear previous logs
+        if (taskLogs[task]) {
+            taskLogs[task].forEach(log => {
+                const logItem = document.createElement("li");
+                logItem.textContent = `${log.date}: ${log.timeSpent} hours`;
+                timeLogsList.appendChild(logItem);
+            });
+        }
     }
 });
