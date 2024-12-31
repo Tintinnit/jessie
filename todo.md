@@ -4,6 +4,8 @@
 - Possibly make the box bigger
 - When task is deleted and the task viewer is open, the task still exists in the task viewer. This should be changed.
 - Add a confirmation message to deleting each task
-- Move delete to Task Details view
+- Move delete and edit to Task Details view
+    - Make edit and dlete buttons into pencil and trash can logo
 - You can add duplicate tasks
 - Notebook or graphing paper background
+- Add stupid Jalo logo as website logo

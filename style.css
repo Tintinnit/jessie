@@ -252,7 +252,7 @@ body.dark-mode .side-panel .panel-body {
     justify-content: space-between;
     align-items: center;
     padding: 15px;
-    background-color: #c26706;
+    background-color: #d198b7;
     color: white;
     font-size: 18px;
     font-weight: bold;
@@ -358,5 +358,37 @@ body.dark-mode #time-log-container button {
 
 body.dark-mode #time-log-container button:hover {
     background-color: #004d00;
+}
+
+/* Dark mode button Settings */
+.dark-mode-btn {
+    position: fixed;
+    top: 10px;
+    left: 30px;
+    width: 40px; /* Fixed width */
+    height: 42px; /* Fixed height */
+    background-color: #ffffff; /* Fallback color */
+    background-image: url('darkmode.png'); /* Replace with your image path */
+    background-size: cover; /* Make the image cover the entire button */
+    background-position: center;
+    border: 2px solid #000000;
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer;
+    z-index: 1000; /* Ensure it stays above other elements */
+}
+
+.dark-mode-btn:hover {
+    background-color: #838383; /* Optional hover effect */
+    filter: brightness(1.2); /* Slightly brighten the image on hover */
+}
+
+body.dark-mode .dark-mode-btn {
+    border-color: #ffffff;
+    background-color: #444444; /* Adjust background in dark mode */
+}
+
+body.dark-mode .dark-mode-btn:hover {
+    background-color: #555555;
+    filter: brightness(1.2);
 }
 
