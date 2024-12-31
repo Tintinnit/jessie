@@ -6,12 +6,18 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f4f4f4;
+    background-image: url('background.jpg');
+    background-size: cover; /* Make the image cover the entire background */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Keep the image fixed during scrolling */
 }
+
 
 /* Dark Mode Styles */
 body.dark-mode {
     background-color: #121212;
+    background-image: url('background-dark.jpg');
     color: #ffffff;
 }
 
@@ -83,7 +89,7 @@ body.dark-mode ul li .edit-button:hover {
     background: #fff;
     padding: 0; /* Remove internal padding for better control */
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     width: 700px;
     max-height: 60vh; /* Restrict container height */
     display: flex;
@@ -365,10 +371,10 @@ body.dark-mode #time-log-container button:hover {
     position: fixed;
     top: 10px;
     left: 30px;
-    width: 40px; /* Fixed width */
-    height: 42px; /* Fixed height */
+    width: 40px;
+    height: 42px;
     background-color: #ffffff; /* Fallback color */
-    background-image: url('darkmode.png'); /* Replace with your image path */
+    background-image: url('darkmode.png');
     background-size: cover; /* Make the image cover the entire button */
     background-position: center;
     border: 2px solid #000000;
