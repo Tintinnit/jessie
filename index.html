@@ -28,8 +28,10 @@
             <button id="close-panel" class="close-panel-btn">×</button>
         </div>
         <div class="panel-body">
-            <p id="panel-content">Click on a task to see details here.</p>
-            <hr>
+            <div class="task-details">
+                <p id="panel-content">Click on a task to see details here.</p>
+                <button id="edit-task-btn" class="edit-task-btn">Edit</button>
+            </div>
             <div id="time-log-container">
                 <label for="task-date">Select Date:</label>
                 <input type="date" id="task-date">
@@ -40,7 +42,10 @@
             <h3>Time Logs:</h3>
             <ul id="time-logs-list"></ul>
         </div>
-    </div>
+        <div class="panel-footer">
+            <button id="delete-task-btn" class="delete-task-btn">Delete Task</button>
+        </div>
+    </div>    
     <script src="script.js"></script>
 </body>
 </html>

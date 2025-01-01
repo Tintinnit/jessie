@@ -7,5 +7,4 @@
 - Move delete and edit to Task Details view
     - Make edit and dlete buttons into pencil and trash can logo
 - You can add duplicate tasks
-- Notebook or graphing paper background
-- Add stupid Jalo logo as website logo
+- Add dark mode to edit and delete buttons in the panel

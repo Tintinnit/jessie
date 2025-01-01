@@ -220,6 +220,8 @@ ul li .edit-button:hover {
 
 /* Side Panel Styles */
 .side-panel {
+    display: flex;
+    flex-direction: column;
     position: fixed;
     top: 0;
     right: -300px;
@@ -239,7 +241,7 @@ body.dark-mode .side-panel {
     border-left: 1px solid #444444;
 }
 
-body.dark-mode .side-panel .panel-header {
+body.dark-mode .side-panel .panel-header .panel-footer {
     background-color: #333333;
     color: #ffffff;
 }
@@ -264,6 +266,12 @@ body.dark-mode .side-panel .panel-body {
     font-weight: bold;
 }
 
+.panel-footer {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
 /* Close Button */
 .close-panel-btn {
     background: none;
@@ -275,10 +283,16 @@ body.dark-mode .side-panel .panel-body {
 
 /* Panel Body */
 .panel-body {
+    flex: 1;
     padding: 20px;
     font-size: 16px;
     color: #333;
     line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Ensure items are aligned to the top */
+    height: calc(100% - 80px); /* Adjust space for delete button */
+    overflow: hidden;
 }
 
 /* Show Panel */
@@ -341,6 +355,25 @@ button:hover {
     background-color: #218838;
 }
 
+#time-logs-list {
+    flex-grow: 1; /* Allow the list to grow dynamically */
+    overflow-y: auto; /* Enable scrolling if the list grows too large */
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    list-style: none;
+    max-height: 100%; /* Ensures the list can expand up to the available height */
+}
+
+/* Dark Mode for Time Logs List */
+body.dark-mode #time-logs-list {
+    background-color: #1e1e1e;
+    border: 1px solid #444444;
+    color: #dddddd; /* Adjust text color for dark mode */
+}
+
 /* Dark Mode for Time Logger Container */
 body.dark-mode #time-log-container {
     background-color: #1e1e1e;
@@ -364,6 +397,60 @@ body.dark-mode #time-log-container button {
 
 body.dark-mode #time-log-container button:hover {
     background-color: #004d00;
+}
+
+/* Task Details Flex Container */
+.task-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid white;
+}
+
+/* Task Details Paragraph */
+.task-details #panel-content {
+    flex: 1; 
+    margin: 0;
+    padding-right: 10px;
+    border-bottom: #ffffff;
+}
+
+/* Edit Task Button */
+.edit-task-btn {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.edit-task-btn:hover {
+    background-color: #0056b3;
+}
+
+
+/* Style for the Delete button at the bottom of the side panel */
+.delete-task-btn {
+    position: absolute; 
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    padding: 10px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: calc(100% - 20px); /* Ensure the button spans the width of the panel */
+    z-index: 1001; /* Ensure it stays on top of other content inside the panel */
+}
+
+.delete-task-btn:hover {
+    background-color: #c82333;
 }
 
 /* Dark mode button Settings */
@@ -397,4 +484,3 @@ body.dark-mode .dark-mode-btn:hover {
     background-color: #555555;
     filter: brightness(1.2);
 }
-
