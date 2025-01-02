@@ -267,6 +267,7 @@ body.dark-mode .side-panel .panel-body {
 }
 
 .panel-footer {
+    flex-shrink: 0;
     padding: 20px;
     display: flex;
     justify-content: center;
@@ -293,6 +294,12 @@ body.dark-mode .side-panel .panel-body {
     justify-content: flex-start; /* Ensure items are aligned to the top */
     height: calc(100% - 80px); /* Adjust space for delete button */
     overflow: hidden;
+    overflow-y: hidden;
+}
+
+.panel-body h3 {
+    margin: 10px 0 5px; /* Reduce margin to minimize the gap */
+    padding-top: 10px;
 }
 
 /* Show Panel */
@@ -356,15 +363,15 @@ button:hover {
 }
 
 #time-logs-list {
-    flex-grow: 1; /* Allow the list to grow dynamically */
-    overflow-y: auto; /* Enable scrolling if the list grows too large */
+    overflow-y: auto; /* Enable scrolling if content exceeds available space */
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ddd;
     background-color: #f9f9f9;
     border-radius: 5px;
     list-style: none;
-    max-height: 100%; /* Ensures the list can expand up to the available height */
+    flex-shrink: 1;
+    max-height: calc(30% - 50px);
 }
 
 /* Dark Mode for Time Logs List */
@@ -420,7 +427,7 @@ body.dark-mode #time-log-container button:hover {
 /* Edit Task Button */
 .edit-task-btn {
     padding: 5px 10px;
-    background-color: #007bff;
+    background-color: #373737;
     color: white;
     border: none;
     border-radius: 5px;
@@ -453,7 +460,26 @@ body.dark-mode #time-log-container button:hover {
     background-color: #c82333;
 }
 
-/* Dark mode button Settings */
+/* Dark Mode for Side Panel Buttons */
+body.dark-mode .edit-task-btn {
+    background-color: #444444;
+    color: #ffffff;
+}
+
+body.dark-mode .edit-task-btn:hover {
+    background-color: #555555;
+}
+
+body.dark-mode .delete-task-btn {
+    background-color: #900d0d;
+    color: #ffffff;
+}
+
+body.dark-mode .delete-task-btn:hover {
+    background-color: #c82333;
+}
+
+/* Button to change dark mode prefixes */
 .dark-mode-btn {
     position: fixed;
     top: 10px;

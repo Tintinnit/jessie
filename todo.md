@@ -7,4 +7,4 @@
 - Move delete and edit to Task Details view
     - Make edit and dlete buttons into pencil and trash can logo
 - You can add duplicate tasks
-- Add dark mode to edit and delete buttons in the panel
+- Add enter functionality for the editing/save task name
