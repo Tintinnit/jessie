@@ -1,10 +1,7 @@
 ## TODO
 
-- When a task name is too long, it pushes towards the edge of the box
+- When a task name is too long, it pushes towards the edge of the box. This is an issue in the side panel too.
 - Possibly make the box bigger
-- When task is deleted and the task viewer is open, the task still exists in the task viewer. This should be changed.
 - Add a confirmation message to deleting each task
-- Move delete and edit to Task Details view
-    - Make edit and dlete buttons into pencil and trash can logo
-- You can add duplicate tasks
-- Add enter functionality for the editing/save task name
+- Make edit and dlete buttons into pencil and trash can logo
+- Time logs don't save when task is edited

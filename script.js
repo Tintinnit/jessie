@@ -52,6 +52,10 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault(); // Prevent form submission
         const task = input.value.trim();
         if (task) {
+            if (taskElements.has(task)) {
+                alert("Task with this name already exists!");
+                return;
+            }
             addTask(task);
             input.value = ""; // Clear the input field
         } else {
@@ -71,19 +75,10 @@ document.addEventListener("DOMContentLoaded", () => {
         // Create the Delete Button in the List
         const deleteBtn = document.createElement("button");
         deleteBtn.textContent = "Delete";
-        deleteBtn.addEventListener("click", () => {
-            li.remove();
-            taskElements.delete(task);
-            if (currentTask === task) {
-                closeSidePanel();
-            }
-        });
 
-        // Add the task name click event to open the side panel
-        taskName.addEventListener("click", () => {
-            currentTask = task;
-            displayTaskInPanel(task);
-        });
+        // Add event listeners for task click and delete
+        taskName.addEventListener("click", handleTaskClick);
+        deleteBtn.addEventListener("click", handleDeleteTask);
 
         // Add all elements to the List Item
         li.appendChild(taskName);
@@ -92,6 +87,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Map task to its list item element
         taskElements.set(task, li);
+    }
+
+    // Handle Task Click to Open Side Panel
+    function handleTaskClick() {
+        currentTask = this.textContent; // The task name that was clicked
+        displayTaskInPanel(currentTask);
+    }
+
+    // Handle Task Deletion
+    function handleDeleteTask() {
+        const taskName = this.previousElementSibling.textContent;
+        if (taskElements.has(taskName)) {
+            const li = taskElements.get(taskName);
+            li.remove();
+            taskElements.delete(taskName);
+            closeSidePanel();
+        }
     }
 
     // Display Task in the Side Panel
@@ -122,36 +134,56 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Handle Edit functionality
     editTaskBtn.addEventListener("click", () => {
-        console.log('Edit button clicked');
         const taskNameDisplay = panelContent.querySelector("span");
-
+    
         // Open edit mode: Replace task name with input field
         const input = document.createElement("input");
         input.type = "text";
         input.value = taskNameDisplay.textContent;
-        panelContent.innerHTML = ""; // Clear previous content
+        panelContent.innerHTML = ""; // Clear previous content except time logs
         const taskLabel = document.createElement("label");
         taskLabel.textContent = "Task: ";
         panelContent.appendChild(taskLabel);
         panelContent.appendChild(input);
-
+    
+        // Preserve existing time logs when editing
+        const existingTimeLogs = document.createElement("ul");
+        existingTimeLogs.id = "time-logs-list";
+        // NEEDS FIXING
+    
         // Replace Edit button with Save button (same style)
         editTaskBtn.textContent = "Save";
         editTaskBtn.classList.add("save-button");
         editTaskBtn.classList.remove("edit-button");
-
-        // Save Button functionality
-        editTaskBtn.addEventListener("click", () => {
+    
+        // Save Task Function
+        const saveTask = () => {
             const updatedTask = input.value.trim();
             if (updatedTask) {
+                if (taskElements.has(updatedTask) && updatedTask !== currentTask) {
+                    alert("Task with this name already exists!");
+                    return;
+                }
                 updateTask(taskNameDisplay.textContent, updatedTask, taskNameDisplay);
+            } else {
+                alert("Task name cannot be empty.");
+            }
+        };
+    
+        // Save when Save button is clicked
+        editTaskBtn.addEventListener("click", saveTask, { once: true });
+    
+        // Trigger the Save function when Enter key is pressed
+        input.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                saveTask();
+                editTaskBtn.removeEventListener("click", saveTask);
             }
         });
     });
 
     // Handle Delete functionality
     deleteTaskBtn.addEventListener("click", () => {
-        console.log('Delete button clicked');
         if (taskElements.has(currentTask)) {
             const li = taskElements.get(currentTask);
             li.remove();
@@ -165,45 +197,33 @@ document.addEventListener("DOMContentLoaded", () => {
         if (taskElements.has(oldTask)) {
             const li = taskElements.get(oldTask);
             const taskName = li.querySelector(".task-name");
+
+            // Update task name in the list
             taskName.textContent = newTask;
+
+            // Re-attach event listeners
+            taskName.removeEventListener("click", handleTaskClick);
+            taskName.addEventListener("click", handleTaskClick);
+
+            const deleteBtn = li.querySelector("button");
+            deleteBtn.removeEventListener("click", handleDeleteTask);
+            deleteBtn.addEventListener("click", handleDeleteTask);
+
+            // Update the map
             taskElements.delete(oldTask);
             taskElements.set(newTask, li);
             currentTask = newTask;
 
-            // Update task name in the side panel
+            // Update the task name in the side panel
             taskNameDisplay.textContent = newTask;
 
-            // Ensure the panel stays open for further edits
+            // Ensure the panel stays open
             displayTaskInPanel(newTask);
-            
+
             // Change the "Save" button back to "Edit" button
             editTaskBtn.textContent = "Edit";
             editTaskBtn.classList.remove("save-button");
             editTaskBtn.classList.add("edit-button");
-
-            // Reattach the Edit event listener after saving
-            editTaskBtn.addEventListener("click", () => {
-                editTaskBtn.textContent = "Save";
-                editTaskBtn.classList.add("save-button");
-                editTaskBtn.classList.remove("edit-button");
-
-                const input = document.createElement("input");
-                input.type = "text";
-                input.value = taskName.textContent;
-                panelContent.innerHTML = "";
-                const taskLabel = document.createElement("label");
-                taskLabel.textContent = "Task: ";
-                panelContent.appendChild(taskLabel);
-                panelContent.appendChild(input);
-
-                // Save Button functionality
-                editTaskBtn.addEventListener("click", () => {
-                    const updatedTask = input.value.trim();
-                    if (updatedTask) {
-                        updateTask(taskName.textContent, updatedTask, taskName);
-                    }
-                });
-            });
         }
     }
 
@@ -233,13 +253,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Display Time Logs for a Task
-    function displayTimeLogs(task) {
-        timeLogsList.innerHTML = ""; // Clear previous logs
+    function displayTimeLogs(task, logContainer = timeLogsList) {
+        logContainer.innerHTML = ""; // Clear previous logs
         if (taskLogs[task]) {
             taskLogs[task].forEach(log => {
                 const logItem = document.createElement("li");
                 logItem.textContent = `${log.date}: ${log.timeSpent} hours`;
-                timeLogsList.appendChild(logItem);
+                logContainer.appendChild(logItem);
             });
         }
     }
