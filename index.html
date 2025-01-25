@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disjusting Pig's Webpage</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" type="image/x-icon" href="logo.png" />
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="container-header">
+            <h1>Activity List</h1>
+            <form id="todo-form">
+                <input type="text" id="todo-input" placeholder="Enter an activity..." required>
+                <button type="submit">+</button>
+            </form>
+        </div>
+        <!-- Scrollable Activity List -->
+        <ul id="todo-list"></ul>
+        <button id="dark-mode-toggle" class="dark-mode-btn"></button>
+    </div>
+    <!-- Side Panel -->
+    <div id="side-panel" class="side-panel">
+        <div class="panel-header">
+            <h2 id="task-title">Task Details</h2>
+            <button id="close-panel" class="close-panel-btn">×</button>
+        </div>
+        <div class="panel-body">
+            <div class="task-details">
+                <p id="panel-content">Click on a task to see details here.</p>
+                <button id="edit-task-btn" class="edit-task-btn">Edit</button>
+            </div>
+            <div id="time-log-container">
+                <label for="task-date">Select Date:</label>
+                <input type="date" id="task-date">
+                <label for="time-spent">Time Spent (hours):</label>
+                <input type="number" id="time-spent" min="0" step="0.1" placeholder="Enter hours">
+                <button id="log-time-btn">Log Time</button>
+            </div>
+            <h3>Time Logs:</h3>
+            <ul id="time-logs-list"></ul>
+        </div>
+        <div class="panel-footer">
+            <button id="delete-task-btn" class="delete-task-btn">Delete Task</button>
+        </div>
+    </div>    
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,607 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('background.jpg');
+    background-size: cover; /* Make the image cover the entire background */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Keep the image fixed during scrolling */
+}
+
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: #121212;
+    background-image: url('background-dark.jpg');
+    color: #ffffff;
+}
+
+body.dark-mode .container {
+    background-color: #1e1e1e;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+}
+
+/* Dark Mode for Header */
+body.dark-mode .container-header {
+    background-color: #1e1e1e;
+    border-bottom: 1px solid #444444;
+    color: #ffffff;
+}
+
+body.dark-mode .container-header h1 {
+    color: #ffffff;
+}
+
+body.dark-mode form input {
+    background-color: #333333;
+    color: #ffffff;
+    border: 1px solid #444444;
+}
+
+body.dark-mode form button {
+    background-color: #006400;
+    color: #ffffff;
+}
+
+body.dark-mode ul li {
+    background-color: #2a2a2a;
+    border: 1px solid #ff00bf;
+}
+
+body.dark-mode ul li.completed {
+    color: #888888;
+}
+
+body.dark-mode ul li button {
+    background-color: #900d0d;
+}
+
+body.dark-mode ul li .edit-button {
+    background-color: #444444;
+}
+
+body.dark-mode ul li button:hover,
+body.dark-mode ul li .edit-button:hover {
+    background-color: #555555;
+}
+
+/* Dark Mode Toggle Button */
+.dark-mode-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.dark-mode-btn:hover {
+    background-color: #0056b3;
+}
+
+.container {
+    background: #fff;
+    padding: 0; /* Remove internal padding for better control */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    width: 700px;
+    max-height: 60vh; /* Restrict container height */
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    overflow: hidden; /* Prevent overflow on the container */
+    text-align: center;
+}
+
+.container-header {
+    background: #fff; /* Match the container */
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+    position: sticky; /* Makes it stick at the top */
+    top: 0;
+    z-index: 1; /* Ensure it stays above the list */
+}
+
+#todo-list {
+    flex: 1; /* Take up remaining space */
+    overflow-y: auto; /* Make the list scrollable */
+    padding: 10px 20px; /* Add some padding for items */
+    margin: 0; /* Remove default margin */
+    list-style: none; /* Remove bullets */
+}
+
+
+h1 {
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    gap: 10px;
+}
+
+form input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+form button {
+    padding: 10px;
+    border: none;
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #218838;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0;
+}
+
+ul li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f9f9f9;
+    margin: 10px 0;
+    padding: 10px;
+    border: 2px solid #d74faa;
+    border-radius: 5px;
+}
+
+.task-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.task-name {
+    flex: 1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 50%;
+    padding-right: 10px;
+    position: relative;
+}
+
+.task-total-time {
+    flex-shrink: 0;
+    white-space: nowrap;
+    width: 20%;
+    margin-left: 10px;
+    position: relative;
+}
+
+/* Vertical dotted line between the task name and total time */
+.task-name::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 2px;
+    border-right: 1.5px dotted #ccc;
+}
+
+ul li.completed {
+    text-decoration: line-through;
+    color: #aaa;
+}
+
+ul li .editable {
+    flex: 1;
+    word-wrap: break-word;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    background: #bababa; /* Matches the background of the li */
+    color: #333;      /* Matches the text color */
+    margin-right: auto;
+    width: 100%;      /* Ensures consistent width */
+    height: 80%;
+    box-sizing: border-box;
+}
+
+
+ul li button {
+    flex-shrink: 0; /* Prevent shrinking */
+    border: none;
+    background: #dc3545;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.edit-button {
+    flex-shrink: 0;
+    border: none;
+    background: #373737;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 5px;
+    position: relative;
+}
+
+ul li button.delete-button {
+    margin-left: auto;
+    align-self: center;
+}
+
+ul li button:hover {
+    background: #c82333;
+}
+
+ul li .edit-button:hover {
+    background: #4a4a4a;
+}
+
+/* Side Panel Styles */
+.side-panel {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    height: 100%;
+    background-color: #f9f9f9;
+    border-left: 1px solid #ddd;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease-in-out;
+    z-index: 1000;
+}
+
+/* Dark Mode for Side Panel */
+body.dark-mode .side-panel {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    border-left: 1px solid #444444;
+}
+
+body.dark-mode .side-panel .panel-header .panel-footer {
+    background-color: #333333;
+    color: #ffffff;
+}
+
+body.dark-mode .side-panel .close-panel-btn {
+    color: #ffffff;
+}
+
+body.dark-mode .side-panel .panel-body {
+    color: #dddddd;
+}
+
+/* Panel Header */
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #d198b7;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.panel-footer {
+    flex-shrink: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Close Button */
+.close-panel-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Panel Body */
+.panel-body {
+    flex: 1;
+    padding: 20px;
+    font-size: 16px;
+    color: #333;
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Ensure items are aligned to the top */
+    height: calc(100% - 80px); /* Adjust space for delete button */
+    overflow: hidden;
+    overflow-y: hidden;
+}
+
+.panel-body h3 {
+    margin: 10px 0 5px; /* Reduce margin to minimize the gap */
+    padding-top: 10px;
+}
+
+/* Show Panel */
+.side-panel.active {
+    right: 0;
+}
+
+/* Button Styles */
+button {
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+    background-color: #ddd;
+}
+
+/* Side Panel Time Logger styles */
+#time-log-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+#time-log-container label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#time-log-container input {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: calc(100% - 16px); /* Matches padding */
+}
+
+#time-log-container input[type="number"] {
+    width: 100%; /* Adjust width to match the container */
+    box-sizing: border-box; /* Include padding and border in width */
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#time-log-container button {
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#time-log-container button:hover {
+    background-color: #218838;
+}
+
+#time-logs-list {
+    overflow-y: auto; /* Enable scrolling if content exceeds available space */
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    list-style: none;
+    flex-shrink: 1;
+    max-height: calc(30% - 70px);
+}
+
+/* Dark Mode for Time Logs List */
+body.dark-mode #time-logs-list {
+    background-color: #1e1e1e;
+    border: 1px solid #444444;
+    color: #dddddd; /* Adjust text color for dark mode */
+}
+
+/* Dark Mode for Time Logger Container */
+body.dark-mode #time-log-container {
+    background-color: #1e1e1e;
+    border: 1px solid #444444;
+}
+
+body.dark-mode #time-log-container label {
+    color: #ffffff;
+}
+
+body.dark-mode #time-log-container input {
+    background-color: #333333;
+    color: #ffffff;
+    border: 1px solid #444444;
+}
+
+body.dark-mode #time-log-container button {
+    background-color: #006400;
+    color: #ffffff;
+}
+
+body.dark-mode #time-log-container button:hover {
+    background-color: #004d00;
+}
+
+/* Task Details Flex Container */
+.task-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid white;
+}
+
+/* Task Details Paragraph */
+.task-details #panel-content {
+    flex: 1; 
+    margin: 0;
+    padding-right: 10px;
+    border-bottom: #ffffff;
+}
+
+#panel-content {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; /* Add ellipsis for overflowed text */
+    max-width: 75%; 
+    display: flex;
+    flex-direction: row;
+    gap: 10px; 
+    padding-top: 5px;
+    padding-bottom: 5px;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 14px;
+    padding: 5px;
+    margin: 0; 
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+/* Edit Task Button */
+.edit-task-btn {
+    padding: 5px 10px;
+    background-color: #373737;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.edit-task-btn:hover {
+    background-color: #0056b3;
+}
+
+
+/* Style for the Delete button at the bottom of the side panel */
+.delete-task-btn {
+    position: absolute; 
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    padding: 10px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: calc(100% - 20px); /* Ensure the button spans the width of the panel */
+    z-index: 1001; /* Ensure it stays on top of other content inside the panel */
+}
+
+.delete-task-btn:hover {
+    background-color: #c82333;
+}
+
+/* Dark Mode for Side Panel Buttons */
+body.dark-mode .edit-task-btn {
+    background-color: #444444;
+    color: #ffffff;
+}
+
+body.dark-mode .edit-task-btn:hover {
+    background-color: #555555;
+}
+
+body.dark-mode .delete-task-btn {
+    background-color: #900d0d;
+    color: #ffffff;
+}
+
+body.dark-mode .delete-task-btn:hover {
+    background-color: #c82333;
+}
+
+/* Confirmation Box Style WIP */
+.confirmation-box {
+    background: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    position: absolute;
+    z-index: 1000;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.confirmation-box p {
+    margin: 0 0 10px;
+    font-size: 14px;
+}
+
+.confirmation-box button {
+    background: #007bff;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    margin-right: 5px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.confirmation-box button.cancel-btn {
+    background: #ccc;
+}
+
+/* Button to change dark mode prefixes */
+.dark-mode-btn {
+    position: fixed;
+    top: 10px;
+    left: 30px;
+    width: 40px;
+    height: 42px;
+    background-color: #ffffff; /* Fallback color */
+    background-image: url('darkmode.png');
+    background-size: cover; /* Make the image cover the entire button */
+    background-position: center;
+    border: 2px solid #000000;
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer;
+    z-index: 1000; /* Ensure it stays above other elements */
+}
+
+.dark-mode-btn:hover {
+    background-color: #838383; /* Optional hover effect */
+    filter: brightness(1.2); /* Slightly brighten the image on hover */
+}
+
+body.dark-mode .dark-mode-btn {
+    border-color: #ffffff;
+    background-color: #444444; /* Adjust background in dark mode */
+}
+
+body.dark-mode .dark-mode-btn:hover {
+    background-color: #555555;
+    filter: brightness(1.2);
+}
