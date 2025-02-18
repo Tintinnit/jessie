@@ -1,116 +1,76 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const path = require('path');
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const path = require("path");
+
 const app = express();
-
-// MongoDB connection
-const uri = process.env.MONGODB_URI;
-
-mongoose.connect(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-}).then(() => {
-    console.log("MongoDB connected!");
-}).catch(err => {
-    console.error("MongoDB connection error:", err);
-});
 
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, "public")));
 
-// Serve static files from the "public" directory
-app.use(express.static(path.join(__dirname, 'public')));
+// Temporary in-memory storage for tasks (since there's no MongoDB)
+let tasks = [];
 
-// Task Schema
-const taskSchema = new mongoose.Schema({
-    name: { type: String, unique: true, required: true },
-    timeLogs: [{ date: String, timeSpent: Number }],
-});
-const Task = mongoose.model('Task', taskSchema);
-
-// Routes
 // Root route
-app.get('/', (req, res) => {
-    res.send('Welcome to the Task Management API');
+app.get("/", (req, res) => {
+    res.send("Welcome to the Task Management API (Local Server)");
 });
 
 // Get all tasks
-app.get('/tasks', async (req, res) => {
-    try {
-        const tasks = await Task.find();
-        res.json(tasks);
-    } catch (error) {
-        res.status(500).json({ message: 'Failed to fetch tasks.' });
-    }
+app.get("/tasks", (req, res) => {
+    res.json(tasks);
 });
 
 // Add new task
-app.post('/tasks', async (req, res) => {
-    try {
-        const { name } = req.body;
-        const newTask = new Task({ name, timeLogs: [] });
-        await newTask.save();
-        res.status(201).json(newTask);
-    } catch (error) {
-        if (error.code === 11000) {
-            res.status(400).json({ message: 'Task name must be unique.' });
-        } else {
-            res.status(500).json({ message: 'Failed to add task.' });
-        }
+app.post("/tasks", (req, res) => {
+    const { name } = req.body;
+
+    // Check for duplicate task name
+    if (tasks.some(task => task.name === name)) {
+        return res.status(400).json({ message: "Task name must be unique." });
     }
+
+    const newTask = { id: tasks.length + 1, name, timeLogs: [] };
+    tasks.push(newTask);
+    res.status(201).json(newTask);
 });
 
 // Update task
-app.put('/tasks/:id', async (req, res) => {
-    try {
-        const { name, timeLogs } = req.body;
+app.put("/tasks/:id", (req, res) => {
+    const { name, timeLogs } = req.body;
+    const taskId = parseInt(req.params.id);
 
-        // Check for duplicate name in tasks other than the current one
-        const existingTask = await Task.findOne({ name, _id: { $ne: req.params.id } });
-        if (existingTask) {
-            return res.status(400).json({ message: 'Task name must be unique.' });
-        }
-
-        // Update the task
-        const task = await Task.findByIdAndUpdate(
-            req.params.id,
-            { name, timeLogs },
-            { new: true, runValidators: true }
-        );
-
-        if (!task) {
-            return res.status(404).json({ message: 'Task not found.' });
-        }
-
-        res.json(task);
-    } catch (error) {
-        res.status(500).json({ message: 'Failed to update task.' });
+    const task = tasks.find(task => task.id === taskId);
+    if (!task) {
+        return res.status(404).json({ message: "Task not found." });
     }
+
+    // Check for duplicate task name (except the current one)
+    if (tasks.some(t => t.name === name && t.id !== taskId)) {
+        return res.status(400).json({ message: "Task name must be unique." });
+    }
+
+    task.name = name;
+    task.timeLogs = timeLogs || [];
+    res.json(task);
 });
 
 // Delete task
-app.delete('/tasks/:id', async (req, res) => {
-    try {
-        const task = await Task.findByIdAndDelete(req.params.id);
-        if (!task) {
-            return res.status(404).json({ message: 'Task not found.' });
-        }
-        res.status(204).send();
-    } catch (error) {
-        res.status(500).json({ message: 'Failed to delete task.' });
-    }
+app.delete("/tasks/:id", (req, res) => {
+    const taskId = parseInt(req.params.id);
+    tasks = tasks.filter(task => task.id !== taskId);
+    res.status(204).send();
 });
 
 // Catch-all route for frontend
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 // Start the server
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`✅ Server is running on http://localhost:${PORT}`);
 });
